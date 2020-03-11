@@ -11,10 +11,14 @@ jobs:
         uses: actions/setup-python@master
         with:
           python-version: 3.8
-      - name: Run unit tests
+      - name: Install pipenv
+        uses: dschep/install-pipenv-action@v1
+      - name: Install dependencies
         run: |
-          pip install pytest
-          pytest
+          pipenv install --dev
+      - name: Run Unit tests
+        run: |
+          pipenv run pytest -s 
       - name: Wemake Python Stylguide
         uses: wemake-services/wemake-python-styleguide@0.13.4
         continue-on-error: true
