@@ -1,1 +1,2 @@
 # Tasty Python
+![Python Master Workflow](https://github.com/wkrzywiec/tasty-python/workflows/Python%20Master%20Workflow/badge.svg) [![CodeFactor](https://www.codefactor.io/repository/github/wkrzywiec/tasty-python/badge)](https://www.codefactor.io/repository/github/wkrzywiec/tasty-python) [![codecov](https://codecov.io/gh/wkrzywiec/tasty-python/branch/master/graph/badge.svg)](https://codecov.io/gh/wkrzywiec/tasty-python) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
