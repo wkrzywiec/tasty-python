@@ -101,7 +101,3 @@ def __get_preparation_steps(soup):
         prep = str(i + 1) + '. ' + preparation_steps_html[i].string
         preparation_steps.append(prep)
     return preparation_steps
-
-
-
-
