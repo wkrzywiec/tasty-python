@@ -47,7 +47,7 @@ def get_recipe(url):
 
     title = soup.find('h1').string
     ingredients_sections = __get_ingredients_sections(soup)
-    preparation = ''
+    preparation = __get_preparation_steps(soup)
     return Recipe(title, ingredients_sections, preparation, url)
 
 def __encode_space(query):
@@ -92,5 +92,16 @@ def __remove_span_tag(s):
     span_tag = re.search('<(.*?)>', s).group(0)
     s = re.sub(span_tag, ' ', s)
     return s
+
+def __get_preparation_steps(soup):
+    preparation_steps = []
+    preparation_html = soup.find("ol", class_="prep-steps")
+    preparation_steps_html = preparation_html.find_all("li")
+    for i in range(len(preparation_steps_html)):
+        prep = str(i + 1) + '. ' + preparation_steps_html[i].string
+        preparation_steps.append(prep)
+    return preparation_steps
+
+
 
 
