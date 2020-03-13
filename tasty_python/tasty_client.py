@@ -5,11 +5,16 @@ import re
 baseUrl = 'https://tasty.co/'
 
 class Recipe: 
-    def __init__(self, title, ingredients, preparation, url):
+    def __init__(self, title, ingredients_sections, preparation, url):
         self.title = title
-        self.ingredients = ingredients
+        self.ingredients_sections = ingredients_sections
         self.preparation = preparation
         self.url = url
+
+class IngredientsSection:
+    def __init__(self, name, ingredients):
+        self.name = name
+        self.ingredients = ingredients
 
 class RecipeSearchResult:
     def __init__(self, key, full_name, url):
@@ -41,20 +46,29 @@ def get_recipe(url):
     soup = BeautifulSoup(result_page.text, 'html.parser')
 
     title = soup.find('h1').string
-    ingredients = __get_ingredients(soup)
+    ingredients_sections = __get_ingredients_sections(soup)
     preparation = ''
-    return Recipe(title, ingredients, preparation, url)
+    return Recipe(title, ingredients_sections, preparation, url)
 
 def __encode_space(query):
     return query.replace(' ', '+')
 
-def  __get_ingredients(soup):
+def  __get_ingredients_sections(soup):
+    sections = []
+    sections_html = soup.find_all("div", class_="ingredients__section")
+    for section_html in sections_html:
+        section = __get_single_ingredients_section(section_html)
+        sections.append(section)
+    return sections
+
+def __get_single_ingredients_section(section_html):
+    section_name = section_html.find("p", class_="ingredient-section-name").string
     ingredients = []
-    points_list = soup.find_all("li", class_="ingredient")
-    for point_tag in points_list:
-        ingredient = __extract_formatted_ingredient(point_tag)
+    ingredients_html = section_html.find_all("li", class_="ingredient")
+    for ingredient_html in ingredients_html:
+        ingredient = __extract_formatted_ingredient(ingredient_html)
         ingredients.append(ingredient)
-    return ingredients
+    return IngredientsSection(section_name, ingredients)
 
 def __extract_formatted_ingredient(point_tag):
     ingredient = ''
