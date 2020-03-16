@@ -6,9 +6,17 @@ class TestTastyClient(unittest.TestCase):
     def test_find_pizza_margherita_recipes(self):
         recipes = tasty.find_reciepes('pizza margherita')
         self.assertGreaterEqual(len(recipes), 6)
-        
+
+    def test_find_no_results(self):
+        recipes = tasty.find_reciepes('dsfkjsdh')
+        self.assertEqual(len(recipes), 0)
+
+    def test_find_empty_query(self):
+        recipes = tasty.find_reciepes('')
+        self.assertEqual(len(recipes), 0)
+
     def test_get_pizza_margherita_by_mario_batali_recipe(self):
-        recipe = tasty.get_recipe('https://tasty.co/recipe/pizza-margherita-by-mario-batali')
+        recipe = tasty.get_recipe_by_url('https://tasty.co/recipe/pizza-margherita-by-mario-batali')
 
         self.assertEqual(recipe.title, 'Pizza Margherita by Mario Batali')
         self.assertEqual(len(recipe.ingredients_sections), 2)

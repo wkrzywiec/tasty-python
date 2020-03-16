@@ -41,7 +41,10 @@ def find_reciepes(query):
         recipes_list.append(recipe)
     return recipes_list
 
-def get_recipe(url):
+def get_recipe_by_key(key):
+    return get_recipe_by_url(baseUrl + 'recipe/' + key)
+
+def get_recipe_by_url(url):
     result_page = requests.get(url)
     soup = BeautifulSoup(result_page.text, 'html.parser')
 
