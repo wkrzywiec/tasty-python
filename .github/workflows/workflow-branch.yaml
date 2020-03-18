@@ -1,0 +1,24 @@
+name: Python Branch Workflow
+on:
+  push:
+    branches-ignore:
+      - 'master'
+jobs:
+  codecov:
+    name: Unit tests
+    runs-on: ubuntu-18.04
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+      - name: Install pipenv
+        uses: dschep/install-pipenv-action@v1
+      - name: Install dependencies
+        run: |
+          pipenv install --dev
+      - name: Run tests
+        run: |
+          pipenv run pytest -s
