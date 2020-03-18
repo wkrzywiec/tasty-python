@@ -24,7 +24,7 @@ def find(query):
 
 @cli.command()
 @click.argument('key', type=click.STRING)
-@click.option('--url', default=False, help='Indicates if you provide the full link to the recipe')
+@click.option('--url/--key', default=False, help='Indicates if you provide the full link to the recipe')
 def get(key, url):
     """Get full recipe by its key"""
     if url:
@@ -33,7 +33,7 @@ def get(key, url):
         recipe = client.get_recipe_by_key(key)
 
     click.secho('\n\t' + recipe.title, fg='green')
-    click.secho('\tSource:' + recipe.url)
+    click.secho('\tSource: ' + recipe.url)
     click.secho('\n\tIngredients:', fg='yellow')
     for section in recipe.ingredients_sections:
         click.secho('\n\t' + section.name)

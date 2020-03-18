@@ -10,7 +10,7 @@ So give it another try, maybe next time you'll find the recipe you're looking fo
 
 pizza_margherita_by_mario_batali_recipe = """
 \tPizza Margherita by Mario Batali
-\tSource:https://tasty.co/recipe/pizza-margherita-by-mario-batali
+\tSource: https://tasty.co/recipe/pizza-margherita-by-mario-batali
 
 \tIngredients:
 

@@ -24,6 +24,13 @@ class TestCliApp(unittest.TestCase):
 
         expected_result = test_data.pizza_margherita_by_mario_batali_recipe
         self.assertEqual(expected_result, result.output)
+
+    def test_get_recipe_by_url(self):
+        result = self.runner.invoke(app.get, ['https://tasty.co/recipe/pizza-margherita-by-mario-batali', '--url'])
+
+        expected_result = test_data.pizza_margherita_by_mario_batali_recipe
+        self.assertEqual(expected_result, result.output)
+    
     
 
 if __name__ == '__main__':
