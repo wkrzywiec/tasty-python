@@ -1,30 +1,29 @@
-import tasty_python.app as app
+import tasty_python.cli as app
 import unittest
 from click.testing import CliRunner
+import tests.test_data as test_data
 
 class TestCliApp(unittest.TestCase):
+    runner = CliRunner()
 
     def test_find_recipe(self):
-        runner = CliRunner()
-        result = runner.invoke(app.find, ['pizza'])
+        result = self.runner.invoke(app.find, ['pizza'])
   
-        expected_result = """
-\tPizza Margherita by Mario Batali
-\t\tpizza-margherita-by-mario-batali
-\t\thttps://tasty.co/recipe/pizza-margherita-by-mario-batali"""
-
+        expected_result = test_data.find_pizza_partial_output
         self.assertIn(expected_result, result.output)
 
     def test_find_no_recipe(self):
-        runner = CliRunner()
-        result = runner.invoke(app.find, ['asdkjh'])
+        result = self.runner.invoke(app.find, ['asdkjh'])
 
-        expected_result = """\nThere are no results for a query: asdkjh
-\nBut there are lots of other recipes with chicken, veggies and more...
-So give it another try, maybe next time you'll find the recipe you're looking for.\n"""
-
+        expected_result = test_data.find_no_results_output
         self.assertIn(expected_result, result.output)
 
+    
+    def test_get_recipe_by_key(self):
+        result = self.runner.invoke(app.get, ['pizza-margherita-by-mario-batali'])
+
+        expected_result = test_data.pizza_margherita_by_mario_batali_recipe
+        self.assertEqual(expected_result, result.output)
     
 
 if __name__ == '__main__':
