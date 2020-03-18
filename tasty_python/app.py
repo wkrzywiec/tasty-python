@@ -1,5 +1,5 @@
 import click
-import tasty_client as client
+import tasty_python.tasty_client as client
 
 @click.group()
 def cli():
@@ -42,8 +42,6 @@ def get(key, url):
     click.secho('\n\tPreparation:', fg='yellow')
     for step in recipe.preparation:
         click.echo('\t' + step)
-    
-    click.echo('get')
 
 @cli.command()
 def launch():
