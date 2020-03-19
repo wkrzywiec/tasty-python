@@ -54,8 +54,7 @@ def get_recipe_by_url(url):
         ingredients_sections = __get_ingredients_sections(soup)
         preparation = __get_preparation_steps(soup)
         return Recipe(title, ingredients_sections, preparation, url)
-    else:
-        return None
+    return None
 
 def __encode_space(query):
     return query.replace(' ', '+')
@@ -64,8 +63,7 @@ def __check_if_page_has_recipe(soup):
     headline = soup.find("h1").string
     if headline == "Oops! We can't find the page you're looking for.":
         return False
-    else:
-        return True
+    return True
 
 def  __get_ingredients_sections(soup):
     sections = []

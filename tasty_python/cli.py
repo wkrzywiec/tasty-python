@@ -33,7 +33,7 @@ def get(key, url):
     else:
         recipe = client.get_recipe_by_key(key)
 
-    if recipe != None:
+    if recipe is not None:
         click.secho('\n\t' + recipe.title, fg='green')
         click.secho('\tSource: ' + recipe.url)
         click.secho('\n\tIngredients:', fg='yellow')
