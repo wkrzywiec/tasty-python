@@ -57,6 +57,14 @@ class TestTastyClient(unittest.TestCase):
         self.assertEqual(preparation_steps[12], '13. Transfer to the oven and broil for 7 or 8 minutes, until the cheese has melted and the crust has developed a nice char in spots. Watch closely and move to a lower rack if necessary.')
         self.assertEqual(preparation_steps[13], '14. Finish each pizza with fresh basil, a drizzle of olive oil, and a sprinkle of salt.')
         self.assertEqual(preparation_steps[14], '15. Enjoy!')
+    
+    def test_get_recipe_by_invalid_key(self):
+        recipe = tasty.get_recipe_by_key('asdjksdjh')
+        self.assertIsNone(recipe)
+
+    def test_get_recipe_by_invalid_url(self):
+        recipe = tasty.get_recipe_by_url('https://tasty.co/recipe/asdjksdjh')
+        self.assertIsNone(recipe)
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ find_no_results_output = """\nThere are no results for a query: asdkjh
 \nBut there are lots of other recipes with chicken, veggies and more...
 So give it another try, maybe next time you'll find the recipe you're looking for.\n"""
 
-pizza_margherita_by_mario_batali_recipe = """
+get_pizza_margherita_by_mario_batali_recipe = """
 \tPizza Margherita by Mario Batali
 \tSource: https://tasty.co/recipe/pizza-margherita-by-mario-batali
 
@@ -46,3 +46,6 @@ pizza_margherita_by_mario_batali_recipe = """
 \t14. Finish each pizza with fresh basil, a drizzle of olive oil, and a sprinkle of salt.
 \t15. Enjoy!
 """
+get_invalid_recipe_key_output = """\nProvided key is invalid. Key: {}\n"""
+
+get_invalid_recipe_url_output = """\nProvided url is invalid. Url: {}\n"""

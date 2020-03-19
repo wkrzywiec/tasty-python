@@ -22,15 +22,28 @@ class TestCliApp(unittest.TestCase):
     def test_get_recipe_by_key(self):
         result = self.runner.invoke(app.get, ['pizza-margherita-by-mario-batali'])
 
-        expected_result = test_data.pizza_margherita_by_mario_batali_recipe
+        expected_result = test_data.get_pizza_margherita_by_mario_batali_recipe
         self.assertEqual(expected_result, result.output)
 
     def test_get_recipe_by_url(self):
         result = self.runner.invoke(app.get, ['https://tasty.co/recipe/pizza-margherita-by-mario-batali', '--url'])
 
-        expected_result = test_data.pizza_margherita_by_mario_batali_recipe
+        expected_result = test_data.get_pizza_margherita_by_mario_batali_recipe
         self.assertEqual(expected_result, result.output)
-    
+
+    def test_get_recipe_by_invalid_key(self):
+        key = 'sdnwknlk'
+        result = self.runner.invoke(app.get, [key])
+
+        expected_result = test_data.get_invalid_recipe_key_output.format(key)
+        self.assertEqual(expected_result, result.output)
+
+    def test_get_recipe_by_invalid_url(self):
+        url = 'https://tasty.co/recipe/dsfd'
+        result = self.runner.invoke(app.get, [url, '--url'])
+
+        expected_result = test_data.get_invalid_recipe_url_output.format(url)
+        self.assertEqual(expected_result, result.output)
     
 
 if __name__ == '__main__':
