@@ -1,5 +1,7 @@
 import click
 import tasty_python.tasty_client as client
+"""Command Line methods for handling user requests
+"""
 
 @click.group()
 def cli():
@@ -8,7 +10,11 @@ def cli():
 @cli.command()
 @click.argument('query', type=click.STRING)
 def find(query):
-    """Find recipes list that match provided query"""
+    """Find recipes list that match provided query
+    
+    Arguments:
+        query {string} -- search query
+    """
 
     results = client.find_reciepes(query)
     if len(results) > 0:
@@ -26,7 +32,12 @@ def find(query):
 @click.argument('key', type=click.STRING)
 @click.option('--url/--key', default=False, help='Indicates if you provide the full link to the recipe')
 def get(key, url):
-    """Get full recipe by its key"""
+    """Get full recipe by its key
+    
+    Arguments:
+        key {string} -- key or url of a recipe
+        url {boolean} -- indicates if first argument is a recipe key or its url
+    """
     
     if url:
         recipe = client.get_recipe_by_url(key)
@@ -53,7 +64,11 @@ def get(key, url):
 @cli.command()
 @click.argument('key', type=click.STRING)
 def launch(key):
-    """Launch the recipe in a web brower by its key"""
+    """Launch the recipe in a web brower by its key
+    
+    Arguments:
+        key {string} -- key of a recipe
+    """
     click.launch('https://tasty.co/recipe' + key)
 
 if __name__ == '__main__':

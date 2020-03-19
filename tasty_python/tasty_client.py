@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+"""Module responsible for getting recipes from tasty.co
+"""
 
 baseUrl = 'https://tasty.co/'
 
@@ -23,6 +25,14 @@ class RecipeSearchResult:
         self.url = url
 
 def find_reciepes(query):
+    """Finds the list of recipes that are matching the search query
+    
+    Arguments:
+        query {string} -- search query
+    
+    Returns:
+        [list(RecipeSearchResult)] -- list of results (including title, key & url)
+    """
     searchUrl = 'search?q='
     query = __encode_space(query)
     result_page = requests.get(baseUrl + searchUrl + query)
@@ -42,9 +52,25 @@ def find_reciepes(query):
     return recipes_list
 
 def get_recipe_by_key(key):
+    """Get specific recipe by its key
+    
+    Arguments:
+        key {string} -- Key of the recipe
+    
+    Returns:
+        Recipe -- Full recipe (including title, ingredients & preparation)
+    """
     return get_recipe_by_url(baseUrl + 'recipe/' + key)
 
 def get_recipe_by_url(url):
+    """Get specific recipe by its url
+    
+    Arguments:
+        key {string} -- URL of the recipe
+    
+    Returns:
+        Recipe -- Full recipe (including title, ingredients & preparation)
+    """
     result_page = requests.get(url)
     soup = BeautifulSoup(result_page.text, 'html.parser')
     is_page_valid = __check_if_page_has_recipe(soup)
