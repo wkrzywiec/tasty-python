@@ -41,17 +41,29 @@ def find_reciepes(query):
         recipes_list.append(recipe)
     return recipes_list
 
-def get_recipe(url):
+def get_recipe_by_key(key):
+    return get_recipe_by_url(baseUrl + 'recipe/' + key)
+
+def get_recipe_by_url(url):
     result_page = requests.get(url)
     soup = BeautifulSoup(result_page.text, 'html.parser')
+    is_page_valid = __check_if_page_has_recipe(soup)
 
-    title = soup.find('h1').string
-    ingredients_sections = __get_ingredients_sections(soup)
-    preparation = __get_preparation_steps(soup)
-    return Recipe(title, ingredients_sections, preparation, url)
+    if is_page_valid:
+        title = soup.find('h1').string
+        ingredients_sections = __get_ingredients_sections(soup)
+        preparation = __get_preparation_steps(soup)
+        return Recipe(title, ingredients_sections, preparation, url)
+    return None
 
 def __encode_space(query):
     return query.replace(' ', '+')
+
+def __check_if_page_has_recipe(soup):
+    headline = soup.find("h1").string
+    if headline == "Oops! We can't find the page you're looking for.":
+        return False
+    return True
 
 def  __get_ingredients_sections(soup):
     sections = []
