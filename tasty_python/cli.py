@@ -51,9 +51,10 @@ def get(key, url):
             click.secho("\nProvided key is invalid. Key: {}".format(key), bg='red')
 
 @cli.command()
-def launch():
-    """Launch the recipe in a web brower"""
-    click.echo('launch')
+@click.argument('key', type=click.STRING)
+def launch(key):
+    """Launch the recipe in a web brower by its key"""
+    click.launch('https://tasty.co/recipe' + key)
 
 if __name__ == '__main__':
     cli()
